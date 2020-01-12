@@ -1,0 +1,75 @@
+{
+	"variables": [],
+	"info": {
+		"name": "nexos",
+		"_postman_id": "dc0cd013-a47b-6c5e-887a-e080eec13e3f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all persons",
+			"request": {
+				"url": "http://0.0.0.0:8889/api/person",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get persons by Id",
+			"request": {
+				"url": "http://localhost:8889/api/person/100000",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update persons by Id",
+			"request": {
+				"url": "http://localhost:8889/api/person/100000",
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete persons by Id",
+			"request": {
+				"url": "http://localhost:8889/api/person/100000",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create person",
+			"request": {
+				"url": "http://localhost:8889/api/person",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n            \"id\": \"100002\",\n            \"name\": \"Bart 2\",\n            \"lastName\": \"Simpson 2\",\n            \"birthDate\": \"2020-01-11\",\n            \"relatives\": [\n                {\n                    \"relativeType\": \"AUNT\",\n                    \"person\": {\n                        \"name\": \"Selma 2\",\n                        \"lastName\": \"Bouvier\",\n                        \"birthDate\": \"2012-01-11\"\n                    }\n                },\n                {\n                    \"relativeType\": \"SISTER\",\n                    \"person\": {\n                        \"name\": \"Maggie\",\n                        \"lastName\": \"Simpson\",\n                        \"birthDate\": \"1980-01-11\"\n                    }\n                },\n                {\n                    \"relativeType\": \"MOTHER\",\n                    \"person\": {\n                        \"name\": \"Marge\",\n                        \"lastName\": \"Simpson\",\n                        \"birthDate\": \"1984-01-11\"\n                    }\n                },\n                {\n                    \"relativeType\": \"FATHER\",\n                    \"person\": {\n                        \"name\": \"Homero\",\n                        \"lastName\": \"Simpson\",\n                        \"birthDate\": \"2020-01-11\"\n                    }\n                },\n                {\n                    \"relativeType\": \"GRANDFATHER\",\n                    \"person\": {\n                        \"name\": \"Abraham\",\n                        \"lastName\": \"Simpson\",\n                        \"birthDate\": \"2020-01-11\"\n                    }\n                }\n            ]\n        }"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

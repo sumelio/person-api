@@ -1,9 +1,21 @@
+/*
+ *
+ *  *   Copyright 2020, Nexos Software S.A.S
+ *  *   https://nxs.com.co/
+ *  *
+ *  *   All rights reserved
+ *  *   Date: 12/02/2020
+ *
+ *
+ */
+
 package co.com.nxs.person.controller;
 
 import co.com.nxs.person.constant.MessageConstant;
 import co.com.nxs.person.constant.RestConstant;
 import co.com.nxs.person.dto.PersonDto;
 import co.com.nxs.person.dto.ResponseDto;
+import co.com.nxs.person.enums.ResponseCode;
 import co.com.nxs.person.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +26,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
+ * Controller for Person rest api.
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ * @author <a href="sumel124@gmail.com">Freddy Lemus</a>
  *
  */
 @RestController
@@ -38,6 +55,7 @@ public class PersonController {
                 <List<PersonDto>>builder()
                 .data(this.personService.getAllPersons())
                 .code(HttpStatus.OK.value())
+                .responseCode(ResponseCode.SUCCESS)
                 .message(MessageConstant.OK)
                 .build();
     }
@@ -55,6 +73,7 @@ public class PersonController {
                 <PersonDto>builder()
                 .data(this.personService.getPersonById(personId))
                 .code(HttpStatus.OK.value())
+                .responseCode(ResponseCode.SUCCESS)
                 .message(MessageConstant.OK)
                 .build();
     }
@@ -71,6 +90,7 @@ public class PersonController {
         return ResponseDto.
                 <PersonDto>builder()
                 .code(HttpStatus.OK.value())
+                .responseCode(ResponseCode.SUCCESS)
                 .message(MessageConstant.SUCCESSFUL_CREATED)
                 .build();
     }
@@ -88,6 +108,7 @@ public class PersonController {
         return ResponseDto.
                 <PersonDto>builder()
                 .code(HttpStatus.OK.value())
+                .responseCode(ResponseCode.SUCCESS)
                 .message(MessageConstant.SUCCESSFUL_UPDATED)
                 .build();
     }
@@ -104,6 +125,7 @@ public class PersonController {
         return ResponseDto.
                 <PersonDto>builder()
                 .code(HttpStatus.OK.value())
+                .responseCode(ResponseCode.SUCCESS)
                 .message(MessageConstant.SUCCESSFUL_DELETE)
                 .build();
     }

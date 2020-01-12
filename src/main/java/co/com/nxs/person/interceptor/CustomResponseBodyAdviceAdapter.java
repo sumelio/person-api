@@ -1,7 +1,18 @@
+/*
+ *
+ *  *   Copyright 2020, Nexos Software S.A.S
+ *  *   https://nxs.com.co/
+ *  *
+ *  *   All rights reserved
+ *  *   Date: 12/02/2020
+ *
+ *
+ */
+
 package co.com.nxs.person.interceptor;
 
 import co.com.nxs.person.enums.EventType;
-import co.com.nxs.person.service.AuditService;
+import co.com.nxs.person.service.AuditAsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -16,11 +27,19 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
+/**
+ * Audit Interceptor for Response body
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ * @author <a href="sumel124@gmail.com">Freddy Lemus</a>
+ *
+ */
 @ControllerAdvice
 public class CustomResponseBodyAdviceAdapter implements ResponseBodyAdvice<Object> {
 
     @Autowired
-    AuditService auditService;
+    AuditAsyncService auditService;
 
     @Override
     public boolean supports(MethodParameter methodParameter,

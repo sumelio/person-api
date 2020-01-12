@@ -1,3 +1,14 @@
+/*
+ *
+ *  *   Copyright 2020, Nexos Software S.A.S
+ *  *   https://nxs.com.co/
+ *  *
+ *  *   All rights reserved
+ *  *   Date: 12/02/2020
+ *
+ *
+ */
+
 package co.com.nxs.person.service;
 
 import co.com.nxs.person.constant.MessageConstant;
@@ -13,17 +24,25 @@ import co.com.nxs.person.repository.PersonRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for Pearson CRUD
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ * @author <a href="sumel124@gmail.com">Freddy Lemus</a>
+ *
+ */
 @Service
 public class PersonService {
 
     private PersonRepository personRepository;
-    private AuditService auditService;
+    private AuditAsyncService auditService;
     private PersonMapper personMapper;
 
     @Autowired
     public PersonService(PersonRepository personRepository,
 						 PersonMapper personMapper,
-                         AuditService auditService) {
+                         AuditAsyncService auditService) {
         this.personRepository = personRepository;
 		this.personMapper = personMapper;
         this.auditService = auditService;

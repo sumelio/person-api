@@ -1,7 +1,18 @@
+/*
+ *
+ *  *   Copyright 2020, Nexos Software S.A.S
+ *  *   https://nxs.com.co/
+ *  *
+ *  *   All rights reserved
+ *  *   Date: 12/02/2020
+ *
+ *
+ */
+
 package co.com.nxs.person.interceptor;
 
 import co.com.nxs.person.enums.EventType;
-import co.com.nxs.person.service.AuditService;
+import co.com.nxs.person.service.AuditAsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
@@ -15,11 +26,20 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 
+/**
+ * Audit Interceptor for Request body
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ * @author <a href="sumel124@gmail.com">Freddy Lemus</a>
+ *
+ */
+
 @ControllerAdvice
 public class AuditRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter {
 
     @Autowired
-    AuditService auditService;
+    AuditAsyncService auditService;
 
     @Autowired
     HttpServletRequest request;
