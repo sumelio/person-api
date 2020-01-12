@@ -15,10 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "logger")
-public class Logger {
+public class Audit {
 	@Id
-	private Long id;
+	private String id;
     private LocalDateTime time;
     private String eventType;
+	private String inputParams;
+	private String outputParams;
 	private String message;
 }

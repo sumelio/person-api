@@ -12,5 +12,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "relative")
 public class Relative {
     private RelativeType relativeType;
-    //private Person person;
+    private Person person;
 }

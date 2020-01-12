@@ -1,4 +1,4 @@
-package co.com.nxs.person.listener;
+package co.com.nxs.person.utils;
 
 import co.com.nxs.person.entities.Person;
 import co.com.nxs.person.entities.Relative;
@@ -6,14 +6,16 @@ import co.com.nxs.person.enums.RelativeType;
 import co.com.nxs.person.mapper.PersonMapper;
 import co.com.nxs.person.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Component
-public class SeedPersonEventListener {
+public class SeedRunner implements ApplicationRunner {
 
     @Autowired
     private PersonService personService;
@@ -24,7 +26,11 @@ public class SeedPersonEventListener {
         seedPersonDocument();
     }
 
-    @EventListener
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        seedPersonDocument();
+    }
+
     private void seedPersonDocument() {
 
         Person person =
@@ -33,37 +39,38 @@ public class SeedPersonEventListener {
                         .id("1000001")
                         .name("Bart")
                         .lastName("Simpson")
+                        .relatives(new ArrayList<>())
                         .build();
 
         person.getRelatives().add(
                 Relative.builder()
-                        .relativeType(RelativeType.SISTER)
-                        //.person(getPersonFromData("100004", "Lisa", "Simpson"))
+                        .relativeType(RelativeType.AUNT)
+                        .person(getPersonFromData("100004", "Selma", "Bouvier"))
                         .build()
         );
 
         person.getRelatives().add(
                 Relative.builder()
                         .relativeType(RelativeType.SISTER)
-                       // .person(getPersonFromData("100004", "Maggie", "Simpson"))
+                        .person(getPersonFromData("100004", "Maggie", "Simpson"))
                         .build());
 
         person.getRelatives().add(
                 Relative.builder()
                         .relativeType(RelativeType.MOTHER)
-                        //.person(getPersonFromData("100004", "Marge", "Simpson"))
+                        .person(getPersonFromData("100004", "Marge", "Simpson"))
                         .build());
 
         person.getRelatives().add(
                 Relative.builder()
                         .relativeType(RelativeType.FATHER)
-                       // .person(getPersonFromData("100004", "Homero", "Simpson"))
+                        .person(getPersonFromData("100004", "Homero", "Simpson"))
                         .build());
 
         person.getRelatives().add(
                 Relative.builder()
                         .relativeType(RelativeType.GRANDFATHER)
-                        //.person(getPersonFromData("100004", "Abraham", "Simpson"))
+                        .person(getPersonFromData("100004", "Abraham", "Simpson"))
                         .build());
 
 
@@ -71,7 +78,7 @@ public class SeedPersonEventListener {
     }
 
     private Person getPersonFromData(String id, String name, String lastName) {
-        return Person.builder().id(id).name(name).lastName(lastName).build();
+        return Person.builder().id(null).name(name).lastName(lastName).birthDate(LocalDate.now()).build();
     }
 
 }

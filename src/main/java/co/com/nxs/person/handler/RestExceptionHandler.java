@@ -3,7 +3,7 @@ package co.com.nxs.person.handler;
 import co.com.nxs.person.controller.MessageConstant;
 import co.com.nxs.person.dto.ResponseDto;
 import co.com.nxs.person.handler.customeException.PersonNotFound;
-import co.com.nxs.person.service.LoggerService;
+import co.com.nxs.person.service.AuditService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class RestExceptionHandler {
 
     @Autowired
-    private LoggerService loggerService;
+    private AuditService loggerService;
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseDto> handleException(Exception ex) {
@@ -44,19 +44,15 @@ public class RestExceptionHandler {
     public ResponseEntity<ResponseDto> handlePersonNotFound(PersonNotFound ex) {
 
         HttpStatus status = HttpStatus.NOT_FOUND;
-        String errorDetail = MessageConstant.PERSON_NOT_FOUND;
         log.error(ex.getLocalizedMessage(), ex);
 
-        loggerService.log(errorDetail, LocalDateTime.now(), status.name());
+        loggerService.log(ex.getMessage(), LocalDateTime.now(), status.name());
 
         return ResponseEntity
                 .status(status)
                 .body(ResponseDto.<String>builder()
-                        .message(errorDetail)
+                        .message(ex.getMessage())
                         .code(status.value())
                         .build());
     }
-
-
-
 }

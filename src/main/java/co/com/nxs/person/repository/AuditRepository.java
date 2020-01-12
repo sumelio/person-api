@@ -6,11 +6,11 @@
  */
 package co.com.nxs.person.repository;
 
-import co.com.nxs.person.entities.Logger;
+import co.com.nxs.person.entities.Audit;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LoggerRepository extends MongoRepository<Logger, Long> {
+public interface AuditRepository extends MongoRepository<Audit, Long> {
 
 }

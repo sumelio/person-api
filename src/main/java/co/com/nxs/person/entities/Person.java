@@ -21,11 +21,4 @@ public class Person {
 	private String lastName;
 	private LocalDate birthDate;
 	private List<Relative> relatives;
-
-	public List<Relative> getRelatives() {
-		if(this.relatives == null) {
-			this.relatives = new ArrayList<Relative>();
-		}
-		return this.relatives;
-	}
 }
