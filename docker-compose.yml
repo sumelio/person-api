@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  person-api:
+    build:
+     context: .
+    image: nexos-person-api
+    environment:
+      TZ: "America/Bogota"
+      NEXOS_MONGO_USER: ${NEXOS_MONGO_USER}
+      NEXOS_MONGO_PASSWORD: ${NEXOS_MONGO_PASSWORD}
+    depends_on:
+    - mongo-db
+    expose:
+     - 8889
+    ports:
+    - "8889:8889"
+    networks:
+     - nexos-network
+  mongo-db:
+    image: mongo
+    environment:
+      TZ: "America/Bogota"
+      MONGO_INITDB_ROOT_USERNAME: ${NEXOS_MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${NEXOS_MONGO_PASSWORD}
+    expose:
+      - 27017
+    ports:
+      - "27017:27017"
+    networks:
+     - nexos-network
+
+networks:
+    nexos-network:
+        driver: bridge
+

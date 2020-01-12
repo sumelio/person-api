@@ -1,0 +1,11 @@
+server:
+  port : 8889
+
+spring:
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  data:
+    mongodb:
+      uri: mongodb://${NEXOS_MONGO_USER}:${NEXOS_MONGO_PASSWORD}@mongo-db:27017
+      database: nexos-db
