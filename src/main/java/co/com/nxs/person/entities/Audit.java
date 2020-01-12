@@ -20,6 +20,7 @@ public class Audit {
 	private String id;
     private LocalDateTime time;
     private String eventType;
+	private String body;
 	private String inputParams;
 	private String outputParams;
 	private String message;

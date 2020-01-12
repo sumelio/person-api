@@ -1,7 +1,8 @@
 package co.com.nxs.person.handler;
 
-import co.com.nxs.person.controller.MessageConstant;
+import co.com.nxs.person.constant.MessageConstant;
 import co.com.nxs.person.dto.ResponseDto;
+import co.com.nxs.person.enums.EventType;
 import co.com.nxs.person.handler.customeException.PersonNotFound;
 import co.com.nxs.person.service.AuditService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class RestExceptionHandler {
         String errorDetail = MessageConstant.GENERAL_ERROR_MESSAGE;
         log.error(ex.getLocalizedMessage(), ex);
 
-        loggerService.log(errorDetail, LocalDateTime.now(), status.name());
+        loggerService.log(String.format("[%S]: $%",status.name(),ex.getMessage()), LocalDateTime.now(), EventType.ERROR);
 
         return ResponseEntity
                 .status(status)
@@ -46,7 +47,7 @@ public class RestExceptionHandler {
         HttpStatus status = HttpStatus.NOT_FOUND;
         log.error(ex.getLocalizedMessage(), ex);
 
-        loggerService.log(ex.getMessage(), LocalDateTime.now(), status.name());
+        loggerService.log(String.format("[%S]: $%",status.name(),ex.getMessage()), LocalDateTime.now(), EventType.FAIL);
 
         return ResponseEntity
                 .status(status)

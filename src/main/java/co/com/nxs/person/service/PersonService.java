@@ -1,16 +1,15 @@
 package co.com.nxs.person.service;
 
-import co.com.nxs.person.controller.MessageConstant;
+import co.com.nxs.person.constant.MessageConstant;
 import co.com.nxs.person.dto.PersonDto;
+import co.com.nxs.person.entities.Person;
 import co.com.nxs.person.handler.customeException.PersonNotFound;
 import co.com.nxs.person.mapper.PersonMapper;
-import co.com.nxs.person.repository.AuditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.com.nxs.person.repository.PersonRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,6 @@ public class PersonService {
     }
 
     public List<PersonDto> getAllPersons() {
-        auditService.logInput("getAllPersons", "Empty", LocalDateTime.now(), "INPUT");
         return this.personRepository.findAll()
                 .stream().map(personMapper::personEntityToPersonDto
                 ).collect(Collectors.toList());
@@ -40,12 +38,30 @@ public class PersonService {
     public PersonDto getPersonById(String personId) {
         return
                 this.personMapper.personEntityToPersonDto(
-                        this.personRepository.findById(personId).orElseThrow(
-                                () -> new PersonNotFound(String.format(MessageConstant.PERSON_NOT_FOUND, personId))
-                        ));
+                        this.findById(personId, String.format(MessageConstant.PERSON_NOT_FOUND, personId)));
     }
 
-	public void createPersons(PersonDto personDto) {
+    public void createPersons(PersonDto personDto) {
 		this.personRepository.save(this.personMapper.personDtoToPersonEntity(personDto));
 	}
+
+    public void updatePersons(String personId, PersonDto personDto) {
+       Person personFromDataBase =
+               this.findById(personId, String.format(MessageConstant.FAIL_UPDATE_BY_PERSON_NOT_FOUND, personId));
+
+       personDto.setId(personFromDataBase.getId());
+        this.personRepository.save(this.personMapper.personDtoToPersonEntity(personDto));
+    }
+
+    public void deletePersonById(String personId) {
+        Person personFromDataBase =
+                this.findById(personId, String.format(MessageConstant.FAIL_UPDATE_BY_PERSON_NOT_FOUND, personId));
+        this.personRepository.delete(personFromDataBase);
+    }
+
+    private Person findById(String personId, String message) {
+        return this.personRepository.findById(personId).orElseThrow(
+                () -> new PersonNotFound(message)
+        );
+    }
 }
